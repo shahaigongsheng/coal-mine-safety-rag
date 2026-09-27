@@ -1,0 +1,66 @@
+# coal-rag 配置
+# 语料来源遵循「raw/ 不可变」原则：本项目只读 E:\武志强知识库\raw，绝不改动原件。
+
+project:
+  name: 煤矿安全标准智能问答系统
+  version: 0.1.0
+  data_dir: data
+  index_dir: index
+  # 换成 sample_clauses.jsonl 即可用随仓库分发的样本语料（无需原始标准文件）
+  clauses_file: clauses.jsonl
+
+corpus:
+  root: E:/武志强知识库/raw
+  # 首期纳入：公开标准/规程类（可对外演示，不含矿方内部资料）
+  include_dirs:
+    - 煤矿安全规程与解读
+    - 架空乘人装置规范
+    - 煤矿安全监控标准
+    - 煤矿井下人员定位标准
+    - 煤矿智能化标准
+    - 煤矿重大事故隐患
+    - 煤矿机电常用标准
+  include_files:
+    - 煤矿井下供电的三大保护细则.pdf
+    - 煤矿井下机电设备完好性要求.pdf
+    - 煤矿供电设计与继电保护整定计算示例(1).pdf
+    - GB 51145-2015 煤矿电气设备安装工程施工与验收规范.pdf
+    - 煤矿重大事故隐患判定标准-2026-应急管理部令21号修订.pdf
+    - 煤矿重大安全隐患条文释义.pdf
+    - 国家矿山安全监察局2026年第5号公告 8项矿山安全行业标准整理汇编.docx
+  # 现场资料不入 fú 索引（内部文档，且体量大、噪声高）
+  exclude_dirs:
+    - 在用文档
+    - 数字化转型
+    - WorkBuddy使用文档
+    - assets
+    - 供电整定
+  max_pdf_pages: 0          # 0 = 不限；调试时可设 30
+  enable_ocr: true          # 扫描件 / CID 乱码 PDF 走 OCR
+  ocr_max_pages: 0          # 0 = 不限
+
+retrieval:
+  bm25_topk: 12
+  vector_topk: 12
+  rerank_topk: 6
+  fuse: rrf                 # Reciprocal Rank Fusion
+  rrf_k: 60
+
+embedding:
+  # none = 纯 BM25（零依赖，离线可跑）
+  # local = sentence-transformers 本地模型（推荐 bge-small-zh-v1.5）
+  # api   = OpenAI 兼容接口（硅基流动 / 通义 / DeepSeek / Ollama）
+  provider: none
+  model: BAAI/bge-small-zh-v1.5
+  api_base: https://api.siliconflow.cn/v1
+  api_key_env: OPENAI_API_KEY
+  dim: 512
+
+llm:
+  # none = 只返回原文，不生成回答（无 key 也能用）
+  provider: none
+  model: deepseek-chat
+  api_base: https://api.siliconflow.cn/v1
+  api_key_env: OPENAI_API_KEY
+  temperature: 0.1
+  max_tokens: 1024

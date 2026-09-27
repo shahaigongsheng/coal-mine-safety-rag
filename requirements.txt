@@ -1,0 +1,18 @@
+# 核心依赖（离线可跑）
+pymupdf>=1.24            # PDF 文本抽取 / 渲染去 OCR
+python-docx>=1.1        # DOCX
+olefile>=0.47           # .doc 二进制兜底
+rank-bm25>=0.2.2        # 稀疏检索
+jieba>=0.42             # 中文分词
+numpy>=1.26
+PyYAML>=6.0
+streamlit>=1.35         # 前端
+
+# OCR（扫描件必需，约 60MB）
+rapidocr-onnxruntime>=1.2.3
+opencv-python>=4.9
+Pillow>=10.0
+
+# 可选：启用向量检索
+# sentence-transformers>=2.6   # embedding.provider = local
+# openai>=1.30                 # embedding.provider = api / llm.provider = api

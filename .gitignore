@@ -1,0 +1,31 @@
+# ---- 语料与索引（体积大，且原始标准受版权约束，不入仓库）----
+data/extracted/
+data/clauses.jsonl
+data/docs.json
+data/inventory.json
+index/
+
+# ---- 样本数据入仓库，方便他人一键体验 ----
+!data/sample_clauses.jsonl
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- 环境与密钥 ----
+.env
+*.token
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- 日志 ----
+*.log
+.streamlit/secrets.toml
