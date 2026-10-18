@@ -19,6 +19,8 @@ env/
 # ---- 环境与密钥 ----
 .env
 *.token
+*.key
+secrets.*
 
 # ---- 编辑器 / 系统 ----
 .vscode/
@@ -29,3 +31,12 @@ Thumbs.db
 # ---- 日志 ----
 *.log
 .streamlit/secrets.toml
+
+# ---- 本地模型缓存 / 临时产物 ----
+.cache/
+models/
+*.sqlite
+*.db
+*.tmp
+scratch/
+_repair_logs/
